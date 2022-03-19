@@ -1,5 +1,6 @@
 package com.adingrt.servidor;
 
+import com.adingrt.TestCocina;
 import com.adingrt.negocio.Pedido;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -67,11 +68,50 @@ public class ServerTCP implements Runnable{
     }
     
     private void procesarPedido(Socket socket) throws IOException, ClassNotFoundException{
-        
-        oos = new ObjectOutputStream(socket.getOutputStream());
         Pedido pedido = new Pedido();
         ois = new ObjectInputStream(socket.getInputStream());
         pedido = (Pedido) ois.readObject();
         pedido.mostrarPedido();
+        this.enviarPedido(pedido);
     }
+    
+    private void enviarPedido(Pedido pedido) {
+        String ipClienteCocina = "192.168.0.16";
+        int puertoClienteCocina = 5000;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        ObjectInputStream ois = null;
+        ObjectOutputStream oos = null;
+        try {
+            s = new Socket(ipClienteCocina, puertoClienteCocina);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+
+            //Solicitud
+            dos.writeInt(1);
+
+            oos = new ObjectOutputStream(s.getOutputStream());
+            oos.writeObject(pedido);
+        } catch (IOException ex) {
+            Logger.getLogger(TestCocina.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (dis != null) {
+                    dis.close();
+                }
+                if (dos != null) {
+                    dos.close();
+                }
+                if (s != null) {
+                    s.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ServerTCP.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RuntimeException(ex);
+            }
+        }
+    }
+    
 }

@@ -21,15 +21,16 @@ public class ServiceLocatorTCP {
     public static final String SERVER_IP = "192.168.0.16";
     public static final int SERVER_PORT = 9999;
 
+    private Socket s = null;
+    private DataInputStream dis = null;
+    private DataOutputStream dos = null;
+    private ObjectInputStream ois = null;
+    private ObjectOutputStream oos = null;
+
     public ServiceLocatorTCP() {
     }
 
     public Menu obtenerMenu() throws IOException {
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        ObjectInputStream ois = null;
-        ObjectOutputStream oos = null;
         try {
             s = new Socket(SERVER_IP, SERVER_PORT);
             dis = new DataInputStream(s.getInputStream());
@@ -58,13 +59,8 @@ public class ServiceLocatorTCP {
 
         return null;
     }
-    
+
     public void procesarPedido(Pedido pedido) throws IOException {
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        ObjectInputStream ois = null;
-        ObjectOutputStream oos = null;
         try {
             s = new Socket(SERVER_IP, SERVER_PORT);
             dis = new DataInputStream(s.getInputStream());
