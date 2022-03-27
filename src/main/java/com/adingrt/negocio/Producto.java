@@ -18,6 +18,9 @@ public class Producto implements Serializable {
         this.precio = precio;
         this.stock = stock;
     }
+
+    public Producto() {
+    }
     
     public int getId() {
         return id;

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class ServiceLocatorTCP {
 
-    public static final String SERVER_IP = "192.168.0.16";
+    public static final String SERVER_IP = "localhost";
     public static final int SERVER_PORT = 9999;
 
     private Socket s = null;
@@ -30,7 +30,8 @@ public class ServiceLocatorTCP {
     public ServiceLocatorTCP() {
     }
 
-    public Menu obtenerMenu() throws IOException {
+    public Menu obtenerMenu() throws IOException, ClassNotFoundException {
+        Menu menu = null;
         try {
             s = new Socket(SERVER_IP, SERVER_PORT);
             dis = new DataInputStream(s.getInputStream());
@@ -39,7 +40,9 @@ public class ServiceLocatorTCP {
             //Solicitud
             dos.writeInt(1);
 
-            oos = new ObjectOutputStream(s.getOutputStream());
+            
+            ois = new ObjectInputStream(s.getInputStream());
+            menu = (Menu) ois.readObject();
         } finally {
             try {
                 if (dis != null) {
@@ -57,7 +60,7 @@ public class ServiceLocatorTCP {
             }
         }
 
-        return null;
+        return menu;
     }
 
     public void procesarPedido(Pedido pedido) throws IOException {

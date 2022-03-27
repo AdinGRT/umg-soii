@@ -30,7 +30,7 @@ public class CajaRegistradoraController implements ActionListener {
 
     private DefaultTableModel modelo = new DefaultTableModel();
 
-    public CajaRegistradoraController(CajaRegistradoraVista seleccionDeMenu) {
+    public CajaRegistradoraController(CajaRegistradoraVista seleccionDeMenu) throws IOException, ClassNotFoundException {
         this.seleccionDeMenu = seleccionDeMenu;
         this.seleccionDeMenu.getBtnConfirmar().addActionListener(this);
         this.seleccionDeMenu.getBtnCancelar().addActionListener(this);
@@ -43,18 +43,18 @@ public class CajaRegistradoraController implements ActionListener {
 
     }
 
-    public void verMenu() {
-        //Menu menu = serviceLocator.obtenerMenu();
-        Menu menu = new Menu();
+    public void verMenu() throws IOException, ClassNotFoundException {
+        Menu menu = serviceLocator.obtenerMenu();
+        //Menu menu = new Menu();
 
-        menu.agregarProducto(new Producto(1, "Pan con Jamon", 7.0, 10));
-        menu.agregarProducto(new Producto(2, "Pan con Pollo", 8.0, 10));
-        menu.agregarProducto(new Producto(3, "Pan con Frijol", 6.0, 10));
-        menu.agregarProducto(new Producto(4, "Licuado de Banano con Leche", 10.0, 10));
-        menu.agregarProducto(new Producto(5, "Licuado de Fresa con Leche", 10.0, 10));
-        menu.agregarProducto(new Producto(6, "Licuado de Melon con Agua", 8.0, 10));
-        menu.agregarProducto(new Producto(7, "Licuado de Mora con Leche", 10.0, 10));
-        menu.agregarProducto(new Producto(8, "Licuado de Mora con Agua", 8.0, 10));
+//        menu.agregarProducto(new Producto(1, "Pan con Jamon", 7.0, 10));
+//        menu.agregarProducto(new Producto(2, "Pan con Pollo", 8.0, 10));
+//        menu.agregarProducto(new Producto(3, "Pan con Frijol", 6.0, 10));
+//        menu.agregarProducto(new Producto(4, "Licuado de Banano con Leche", 10.0, 10));
+//        menu.agregarProducto(new Producto(5, "Licuado de Fresa con Leche", 10.0, 10));
+//        menu.agregarProducto(new Producto(6, "Licuado de Melon con Agua", 8.0, 10));
+//        menu.agregarProducto(new Producto(7, "Licuado de Mora con Leche", 10.0, 10));
+//        menu.agregarProducto(new Producto(8, "Licuado de Mora con Agua", 8.0, 10));
 
         for (Producto p : menu.getProductos()) {
             ProductoPanel productoPanel = new ProductoPanel();

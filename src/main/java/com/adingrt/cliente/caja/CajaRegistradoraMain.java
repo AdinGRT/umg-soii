@@ -1,5 +1,9 @@
 package com.adingrt.cliente.caja;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Adin Rubio
@@ -7,7 +11,13 @@ package com.adingrt.cliente.caja;
 public class CajaRegistradoraMain {
     public static void main(String[] args) {
         CajaRegistradoraVista seleccionDeMenu = new CajaRegistradoraVista();
-        CajaRegistradoraController cajaController = new CajaRegistradoraController(seleccionDeMenu);
+        try {
+            CajaRegistradoraController cajaController = new CajaRegistradoraController(seleccionDeMenu);
+        } catch (IOException ex) {
+            Logger.getLogger(CajaRegistradoraMain.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CajaRegistradoraMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
         seleccionDeMenu.setVisible(true);
         
     }
